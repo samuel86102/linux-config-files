@@ -178,6 +178,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # ws to screen
 set $FM VGA1
 set $SM LVDS1
+#set $SM HDMI1
 
 workspace 1 output $FM
 workspace 2 output $FM
