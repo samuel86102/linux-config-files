@@ -176,8 +176,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 
 # ws to screen
-set $FM VGA1
-set $SM LVDS1
+set $SM VGA1
+set $FM LVDS1
 #set $SM HDMI1
 
 workspace 1 output $FM
@@ -203,6 +203,10 @@ bindsym $mod+Shift+r restart
 
 # ArcoLinux Logout
 bindsym $mod+Shift+e exec --no-startup-id archlinux-logout
+
+#bindsym $mod+i exec i3lock --ind-pos="x--1150:y--500" --radius 50 --{time, date, layout, verif, wrong, greeter}-size=12 -i ~/Pictures/i3lock/blue3.png
+bindsym $mod+i exec i3lock --ind-pos="x--1150:y--500" --radius 50 --verif-text="" --wrong-text=""  -i ~/Pictures/i3lock/blue6.png
+#bindsym $mod+i exec i3lock
 
 
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
