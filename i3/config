@@ -25,13 +25,12 @@ set $mediumgrey		#8b8b8b
 set $yellowbrown	#e1b700
 
 
-
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 9
-font pango:source code pro 10
+font pango:source code pro 11
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -51,11 +50,10 @@ exec --no-startup-id dex --autostart --environment i3
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-exec --no-startup-id pa-applet
+#exec --no-startup-id pa-applet
 exec --no-startup-id fcitx
 
-
-
+# screenshot
 bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'
 
 
@@ -65,6 +63,11 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym XF86MonBrightnessUp exec xbacklight -inc 2
+bindsym XF86MonBrightnessDown exec xbacklight -dec 2
+
+
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -78,7 +81,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run_history -nb '#2d2d2d' -sf '#2d2d2d' -sb '#b0b5bd' -nf '#b0b5bd' -fn 'source code pro:regular:pixelsize=16'
+bindsym $mod+d exec --no-startup-id dmenu_run_history -nb '#2d2d2d' -sf '#2d2d2d' -sb '#b0b5bd' -nf '#b0b5bd' -fn 'source code pro:regular:pixelsize=18'
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -125,6 +128,10 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+
+bindsym $mod+Shift+s sticky toggle
+
+
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -176,9 +183,10 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 
 # ws to screen
-set $SM VGA1
-set $FM LVDS1
-#set $SM HDMI1
+#set $SM VGA1
+#set $FM LVDS1
+set $FM ePD1
+set $SM VIRTUAL1
 
 workspace 1 output $FM
 workspace 2 output $FM
@@ -240,10 +248,7 @@ mode "resize" {
 
 
 
-################# xbacklight                       
 
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 # decrease screen brightness
 
 
 
@@ -276,12 +281,10 @@ bar {
 	status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
 	position top
 
-
-
 colors {
 		    #separator          $darkblue
 		    background         $darkgrey
-		    statusline         $white
+		    statusline         #eceff4e
 #                          		border 		        bg		txt		indicator
 		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
 		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
@@ -291,3 +294,10 @@ colors {
 
 
 }
+
+
+# for Thinkpad touchpad and trackpoint
+
+exec --no-startup-id xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput --set-prop "TPPS/2 IBM TrackPoint" "libinput Accel Speed" -0.4
+
